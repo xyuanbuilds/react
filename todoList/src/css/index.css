@@ -1,0 +1,95 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,body {
+  background: rgb(216, 216, 216);
+  color: #4d4d4d;
+  height: 100%;
+  width: 100%;
+}
+div {
+  height: 100%;
+  width: 100%;
+}
+.todoList {
+  /* margin: 0 auto; */
+  width: 500px;
+  height: auto;
+  /* transform: translateY(-50%); */
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  position: relative;
+}
+.todoInput {
+  width: 500px;
+  height: 50px;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.todoInput label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  line-height: 50px;
+  padding-left: 10px;
+}
+.todoInput input {
+  margin-left: 75px;
+  width: 425px;
+  padding: 10px 15px 10px 2px;
+  height: 50px;
+  vertical-align: middle;
+  outline: none;
+  border: none;
+  line-height: 50px;
+  color: #4d4d4d;
+  text-indent: 10px;
+  border-radius: 4px;
+}
+.todoItem {
+  margin-top: 5px;
+  height: 50px;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.todoItem.completed label {
+  color: #d9d9d9;
+  text-decoration: line-through;
+}
+.toggle {
+  outline: none;
+  text-align: center;
+  width: 50px;
+  height: auto;
+  border: none;
+  -webkit-appearance: none;
+  appearance: none;
+  /* margin-left: 10px; */
+}
+.toggle:after {
+  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50px" height="50px" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="#fff" stroke="#848a89" stroke-width="3"/></svg>');
+}
+
+.toggle:checked:after {
+  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="#fff" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
+}
+.delete {
+  height: 30px;
+  line-height: 30px;
+  padding: 0px 15px 0px 15px;
+  border-radius: 5px;
+  background-color: #108ee9;
+  border-color: #108ee9;
+  border: 1px solid transparent;
+  outline: 0;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  margin-right: 20px;
+}
