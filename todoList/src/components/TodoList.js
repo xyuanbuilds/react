@@ -27,6 +27,7 @@ class TodoList extends Component {
       view: 'all'
     }
     this.getleftItems = this.getleftItems.bind(this)
+    this.changeView = this.changeView.bind(this)
     this.add = this.add.bind(this)
     this.clear = this.clear.bind(this)
     this.toggle = this.toggle.bind(this)
@@ -37,18 +38,13 @@ class TodoList extends Component {
     return Math.floor(Math.random() * 9000) + 1000;
   }
 
-  changeItems () {
-    switch () {
-      case this.e.target === all
-
-      case this.e.target === active
-      case this.e.target === complete
-    }
+  changeView(view) {
+    this.setState({ view });
   }
 
   getleftItems () {
     var items = this.state.items
-    var leftArr = items.filter((item) => {
+    var leftArr = items.filter(item => {
       return item.checked === false
     })
     return leftArr.unshift() 
@@ -69,7 +65,7 @@ class TodoList extends Component {
 
   clear () {
     var items = this.state.items
-    items = items.filter((item) => {
+    items = items.filter(item => {
       return item.checked === false
     })
     this.setState({ items })
@@ -77,7 +73,7 @@ class TodoList extends Component {
   
   delete (itemId) {
     var items = this.state.items
-    items = items.filter((item) => {
+    items = items.filter(item => {
       return item.id !== itemId
     })
     this.setState({ items });
@@ -97,12 +93,24 @@ class TodoList extends Component {
       }
     } 
     console.log(toggleId)
-    this.setState({ items: items });
+    this.setState({ items });
   }
 
   render() {
+    var items = this.state.items
     var leftItems = this.state.items.length
-    var itemList = this.state.items.map((item, index) => {
+    var view = this.state.view
+    items = items.filter(item => {
+      switch (this.state.view) {
+        case 'active':
+          return !item.checked; // 返回未完成的
+        case 'completed':
+          return item.checked; // 返回已完成的
+        default:
+          return true;    //view为all时全返回
+      }
+    })
+    var itemList = items.map((item, index) => {
       if (item.checked) leftItems--;
       return (
         <TodoItem
@@ -122,10 +130,11 @@ class TodoList extends Component {
     if (this.state.items.length) {  // 无items则不显示footer
       var footer = (
         <TodoFooter
-          changeItems={this.changeItems}
+          changeItems={this.changeView}
           clear={this.clear}
           showClearButton={showClearButton}
           leftItems={leftItems}
+          view={view}
         />
       )
     }

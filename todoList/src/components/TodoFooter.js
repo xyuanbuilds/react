@@ -6,6 +6,7 @@ class TodoFooter extends Component {
   }
   
   render() {
+    let view = this.props.view
     let showClearButton = this.props.showClearButton ? "" : "none"
     let buttonClassName = `clear ${showClearButton}`;
     return (
@@ -14,19 +15,19 @@ class TodoFooter extends Component {
         <ul className="selectList">
           <li><a 
           href="javascript:;" 
-          className="selected"
-          onClick={this.props.changeItems}
+            className={( view === 'all') ? 'selected': ''}
+          onClick={ev => this.props.changeItems('all')} //这样的格式才可以传参
           >All</a></li>
           <li><a 
           href="javascript:;" 
-          className=""
-          onClick={this.props.changeItems}
+            className={(view === 'active') ? 'selected' : ''}
+          onClick={ev => this.props.changeItems('active')}
           >active</a></li>
           <li><a 
           href="javascript:;" 
-          className=""
-          onClick={this.props.changeItems}
-          >complete</a></li>
+            className={(view === 'completed') ? 'selected' : ''}
+          onClick={ev => this.props.changeItems('completed')}
+          >completed</a></li>
         </ul>
         <button 
           className={buttonClassName}
