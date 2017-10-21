@@ -4,26 +4,28 @@ class TodoInput extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: ''
+      value: '',
+      inEdit: false,
     }
     this.handleChange = this.handleChange.bind(this)
     this.submit = this.submit.bind(this)
   }
 
-  handleChange (input) {
-    this.setState({ value: input.target.value });
+  // 受控组件后的绑定事件
+  handleChange (e) {
+    e.preventDefault();
+    this.setState({ value: e.target.value });
   }
 
+  // 提交新todo
   submit (e) {
-    e.preventDefault();
-    if(e.keyCode !==13 ) return // 判断是否是enter输入
-    var add = this.state.value.trim()
-    if(!add) {
-      return;
+    if(e.keyCode === 13 ) {
+      var add = this.state.value.trim()
+      if(!add) return;
+      this.props.addItem(add);
+      this.setState({ value: '' })
+      this.setState({ isEdit: false})
     }
-    this.props.addItem(add);
-    add = "";
-    this.setState({ value: add })
   }
 
   render() {

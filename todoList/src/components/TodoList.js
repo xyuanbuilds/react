@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TodoItem from './TodoItem';
 import TodoInput from './TodoInput';
+import TodoFooter from './TodoFooter';
 
 class TodoList extends Component {
   constructor(props) {
@@ -22,15 +23,35 @@ class TodoList extends Component {
           checked: false,
           content: 'item3'
         }
-      ]
+      ],
+      view: 'all'
     }
+    this.getleftItems = this.getleftItems.bind(this)
     this.add = this.add.bind(this)
+    this.clear = this.clear.bind(this)
     this.toggle = this.toggle.bind(this)
     this.delete = this.delete.bind(this)
   }
 
   generateId () {
     return Math.floor(Math.random() * 9000) + 1000;
+  }
+
+  changeItems () {
+    switch () {
+      case this.e.target === all
+
+      case this.e.target === active
+      case this.e.target === complete
+    }
+  }
+
+  getleftItems () {
+    var items = this.state.items
+    var leftArr = items.filter((item) => {
+      return item.checked === false
+    })
+    return leftArr.unshift() 
   }
 
   add (content) {
@@ -46,6 +67,14 @@ class TodoList extends Component {
     this.setState({ items })
   }
 
+  clear () {
+    var items = this.state.items
+    items = items.filter((item) => {
+      return item.checked === false
+    })
+    this.setState({ items })
+  }
+  
   delete (itemId) {
     var items = this.state.items
     items = items.filter((item) => {
@@ -59,6 +88,11 @@ class TodoList extends Component {
     for (var i in items) {
       if (items[i].id === toggleId) {
         items[i].checked = items[i].checked === true ? false : true;
+        if (items[i].checked) {
+          this.state.leftItems --
+        } else {
+          this.state.leftItems ++
+        }
         break;
       }
     } 
@@ -67,7 +101,9 @@ class TodoList extends Component {
   }
 
   render() {
-    var itemList = this.state.items.map((item) => {
+    var leftItems = this.state.items.length
+    var itemList = this.state.items.map((item, index) => {
+      if (item.checked) leftItems--;
       return (
         <TodoItem
         itemId = {item.id}
@@ -76,17 +112,33 @@ class TodoList extends Component {
         checked = {item.checked}
         toggle = {this.toggle}
         delete = {this.delete}
+        key = {index}
         />
       )
     })
 
+    var showClearButton = (leftItems < this.state.items.length)
+    
+    if (this.state.items.length) {  // 无items则不显示footer
+      var footer = (
+        <TodoFooter
+          changeItems={this.changeItems}
+          clear={this.clear}
+          showClearButton={showClearButton}
+          leftItems={leftItems}
+        />
+      )
+    }
     return (
       <div className="todoList" >
         <TodoInput 
         generateId={this.generateId}
         addItem={this.add}
         />
-        {itemList}
+        <ul className="itemList">
+          {itemList} 
+          {footer}
+        </ul>
       </div>
     );
   }

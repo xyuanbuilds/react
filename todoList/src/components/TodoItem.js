@@ -15,8 +15,10 @@ class TodoItem extends Component {
     this.props.delete(this.props.itemId)
   }
   render() {
+    let completed = this.props.checked ? "completed" : ""
+    let itemClassName = `todoItem ${completed}`;
     return (
-      <li className={"todoItem" + " " + this.props.checked ? "completed" : "" } >
+      <li className={ itemClassName } >
         <input
         name={this.props.itemId} 
         type="checkbox" 
