@@ -20,7 +20,7 @@ class TodoInput extends Component {
   // 提交新todo
   submit (e) {
     if(e.keyCode === 13 ) {
-      var add = this.state.value.trim()
+      let add = this.state.value.trim()
       if(!add) return;
       this.props.addItem(add);
       this.setState({ value: '' })
@@ -32,7 +32,7 @@ class TodoInput extends Component {
     return (
       <div className="todoInput">
         <label>
-        新增输入
+       Todo：
         </label>
         <input 
           name="add"

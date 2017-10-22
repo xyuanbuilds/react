@@ -26,12 +26,26 @@ class TodoList extends Component {
       ],
       view: 'all'
     }
-    this.getleftItems = this.getleftItems.bind(this)
+    // this.getleftItems = this.getleftItems.bind(this)
     this.changeView = this.changeView.bind(this)
+    this.editItems = this.editItems.bind(this)
     this.add = this.add.bind(this)
     this.clear = this.clear.bind(this)
     this.toggle = this.toggle.bind(this)
     this.delete = this.delete.bind(this)
+  }
+
+  editItems(itemId, newValue) {
+    let { items } = this.state
+    items = items.map(item => {
+      if (item.id === itemId) { 
+        item.content = newValue 
+        return item
+      } else {
+        return item
+      }
+    })
+    this.setState({ items });
   }
 
   generateId () {
@@ -42,19 +56,19 @@ class TodoList extends Component {
     this.setState({ view });
   }
 
-  getleftItems () {
-    var items = this.state.items
-    var leftArr = items.filter(item => {
-      return item.checked === false
-    })
-    return leftArr.unshift() 
-  }
+  // getleftItems () {
+  //   let items = this.state.items
+  //   let leftArr = items.filter(item => {
+  //     return item.checked === false
+  //   })
+  //   return leftArr.unshift() 
+  // }
 
   add (content) {
-    var items = this.state.items
-    var id = this.generateId()
-    var checked = false
-    var newItem = {
+    let { items } = this.state
+    let id = this.generateId()
+    let checked = false
+    let newItem = {
       'id':id,
       'checked':checked,
       'content':content
@@ -64,7 +78,7 @@ class TodoList extends Component {
   }
 
   clear () {
-    var items = this.state.items
+    let { items } = this.state
     items = items.filter(item => {
       return item.checked === false
     })
@@ -72,7 +86,7 @@ class TodoList extends Component {
   }
   
   delete (itemId) {
-    var items = this.state.items
+    let { items } = this.state
     items = items.filter(item => {
       return item.id !== itemId
     })
@@ -80,7 +94,7 @@ class TodoList extends Component {
   }
 
   toggle (toggleId) {
-    var items = this.state.items;
+    let { items } = this.state
     for (var i in items) {
       if (items[i].id === toggleId) {
         items[i].checked = items[i].checked === true ? false : true;
@@ -97,9 +111,8 @@ class TodoList extends Component {
   }
 
   render() {
-    var items = this.state.items
-    var leftItems = this.state.items.length
-    var view = this.state.view
+    let { items, view } = this.state
+    let leftItems = this.state.items.length
     items = items.filter(item => {
       switch (this.state.view) {
         case 'active':
@@ -120,12 +133,12 @@ class TodoList extends Component {
         checked = {item.checked}
         toggle = {this.toggle}
         delete = {this.delete}
-        key = {index}
+        editItems = {this.editItems}
         />
       )
     })
 
-    var showClearButton = (leftItems < this.state.items.length)
+    let showClearButton = (leftItems < this.state.items.length)
     
     if (this.state.items.length) {  // 无items则不显示footer
       var footer = (

@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 
 class TodoFooter extends Component {
-  constructor(props) {
-    super(props)
-  }
-  
+
   render() {
     let view = this.props.view
     let showClearButton = this.props.showClearButton ? "" : "none"

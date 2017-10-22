@@ -63,10 +63,12 @@ div {
   margin-top: 5px;
   height: 80px;
   width: 500px;
+  border-bottom: 1px solid rgb(197, 197, 197);
+}
+.view {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgb(197, 197, 197);
 }
 .todoItem label {
   transition: .5s
@@ -138,4 +140,22 @@ button {
   background: none;
   border: none;
   font-size: 100%;
+}
+.editing .view {
+  display: none;
+}
+.edit {
+  width: 500px;
+  height: 70px;
+  display: none;
+  text-indent: 20px;
+  font-size: 20px;
+}
+.editing .edit {
+  display: block;
+}
+.edit:focus {
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid #06c5f5;
 }
