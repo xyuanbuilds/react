@@ -113,6 +113,7 @@ footer {
   align-items: center;
 }
 a {
+  user-select: none;
   text-decoration: none;
   color: inherit;
   margin: 3px;
