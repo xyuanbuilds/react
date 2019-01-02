@@ -1,3 +1,11 @@
+建议安装一个 yarn。
+打开该项目
+ 在当前目录
+ yarn install
+ yarn start 即可
+ 所做的修改会实时更新
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
